@@ -4,7 +4,6 @@
  */
 package culturestory;
 import processing.core.PApplet;
-import java.awt.event.KeyEvent;
 import processing.core.PImage;
 /**
  *
@@ -13,11 +12,17 @@ import processing.core.PImage;
 public class MySketch extends PApplet {
     // variables that set up the drawing function
     private Person person;
+    private Person coin1;
     int stage = 0;
     String userInput = "";
     private PImage bg;
     private PImage main;
+    private PImage dial1;
+    private PImage dial2;
+        int count = 0;
+
     public void settings(){
+
         size(1000, 500);
     }
     //setup textsize and background, can change later on
@@ -27,6 +32,9 @@ public class MySketch extends PApplet {
         textSize(20);
         //Import image and instantiate person
         person = new Person(this,50,50,"images/drag.png");
+        coin1 = new Person(this,800,200,"images/gold.png");
+        dial1 = loadImage("images/Dialog1.png");
+        dial2 = loadImage("images/Dialog2.png");
     }
     public void draw(){
         //change to image later
@@ -43,6 +51,7 @@ public class MySketch extends PApplet {
         if (stage == 1){
             image(bg,0,0);
             person.draw();
+            coin1.draw();
             // Writes users name on the dragon
             this.text(name,person.x +3 , person.y);
 
@@ -60,9 +69,18 @@ public class MySketch extends PApplet {
                 person.moveTo(0,-3);
             } 
             
-               
-        }
+
+                   
+               }
+        }               
+        if (person.isCollidingWith(coin1)) {
+                   count = 1;
+                   this.text("+1", coin1.x, coin1.y);
+                   
+                   image(dial1,50,390);
     }
+        
+    
     
     }
 public void keyPressed(){

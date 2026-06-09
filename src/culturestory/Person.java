@@ -49,4 +49,14 @@ public class Person {
         //staminap = doubleParce
         //text(stamina, 50,50);
     }
+    public boolean isCollidingWith(Person other) {
+        //Checking
+        boolean isLeftOfOtherRight = x < other.x + other.image.width;
+        boolean isRightOfOtherLeft = x + other.image.width > other.x ;
+        boolean isAboveOtherBottom = y < other.y + other.image.height;
+        boolean isBelowOtherTop = y + image.height > other.y;
+        
+        // return statement
+        return isLeftOfOtherRight && isRightOfOtherLeft && isAboveOtherBottom && isBelowOtherTop;
+    }
 }
