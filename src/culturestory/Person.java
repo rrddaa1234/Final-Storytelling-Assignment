@@ -23,6 +23,7 @@ public class Person {
     private double stamina = 30.0;
     private String namep;
     
+    //Instantiation of people / characters with their image.
     public Person(PApplet p, int x, int y, String imagePath){
         this.app = p;
         this.x = x;
@@ -30,19 +31,22 @@ public class Person {
         this.image = app.loadImage(imagePath);
     }
     public void Name(String name){
+        // adds name
         this.namep = name;
         
     }
-    
+    //d is the rate of increase
     public void moveTo(int dx, int dy){
+        // addes the rate of change to the x and y
         x += dx;
         y += dy;
 
-        stamina -= .2;
-        System.out.print(stamina + "   ");
-        System.out.flush();
+        //stamina -= .2;
+      //  System.out.print(stamina + "   ");
+       // System.out.flush();
     }
     public void draw(){
+        //draws the image/person onto the screen
         app.image(image,x,y);
 
 
@@ -50,7 +54,7 @@ public class Person {
         //text(stamina, 50,50);
     }
     public boolean isCollidingWith(Person other) {
-        //Checking
+        //Checking and comparing the x and y from both sides to confirm collision.
         boolean isLeftOfOtherRight = x < other.x + other.image.width;
         boolean isRightOfOtherLeft = x + other.image.width > other.x ;
         boolean isAboveOtherBottom = y < other.y + other.image.height;
