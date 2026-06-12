@@ -17,6 +17,7 @@ public class MySketch extends PApplet {
     private Person snake;
     int stage = 0;
     String userInput = "";
+    //images be declared
     private PImage bg;
     private PImage bg2;
     private PImage main;
@@ -25,11 +26,13 @@ public class MySketch extends PApplet {
     private PImage dial3;
     private PImage dial4;
     private PImage dial5;
+    private PImage flag;
+    private PImage credit;
     private Person cat;
     private boolean appearance = true;
     private Person farmer;
     
-        int count = 0;
+// counter variable is set to 0
     private int counter =0;
 
     public void settings(){
@@ -52,6 +55,8 @@ public class MySketch extends PApplet {
         dial4 = loadImage("images/Dialog4.png");
         dial5 = loadImage("images/Dialog5.png");
         bg2 = loadImage("images/field.png");
+        flag = loadImage("images/Flag.png");
+        credit = loadImage("images/Credit.png");
         farmer = new Person(this,700,400,"images/farmer.png");
     }
     public void draw(){
@@ -59,6 +64,7 @@ public class MySketch extends PApplet {
         image(main,0,0);
         
         if (stage == 0){
+            //SET UP FOR THE CHARACTERS NAME
             fill(0);
             text("Enter your Name and press 'ENTER' to start", 330,280);
             text(userInput, 423 , 320);
@@ -114,21 +120,22 @@ public class MySketch extends PApplet {
             //COIN MODES OFF SCREEN
             if (appearance == false) {  
                 if (counter==0){
+                    //Says dialogue and enter to go to next dialogue.
                 image(dial1,50,390);
                 text("'ENTER' to continue", 800,380);
                 } else if (counter ==1){
+                    //COIN BECOME THE CAT and says dialogue
                     cat.draw();
                     image(dial2,50,390);
                     text("'Space' to continue", 800,380);
-                        if (keyCode == KeyEvent.VK_SPACE){
-                            System.out.println("Marker");                            
+                        if (keyCode == KeyEvent.VK_SPACE){                          
                             counter =2;
             }
                 } else if (counter ==2) {
                 person.x = 10;
                 person.y = 400;
                 stage =2;
-                System.out.print("second mark");
+
     
             }
 
@@ -151,16 +158,18 @@ public class MySketch extends PApplet {
             // in scene 2 the dragon flys over a farm town to water their crops.
             image(bg2,0,0);
             person.draw();
-            System.out.println("Third marker");
+            // Writes users name on the dragon
+            this.text(name,person.x +1 , person.y);
+// Dialogue 
             if (counter != 1){
-               if (person.x < 100){
+
                     image(dial3,50,90);
+                    //ENTER to continue.
                     text("'ENTER' to continue", 800,80);
                     farmer.draw();
                     if (keyCode == ENTER){
                         counter = 1;
-            }            
-               }
+                        }
             }
             // AFTER DIALOGUE
             if(counter == 1){
@@ -208,10 +217,16 @@ public class MySketch extends PApplet {
             // Goes back into river
             image(bg,0,0);
             person.draw();
+            image(flag,880,10);
+            // Writes users name on the dragon
+            this.text(name,person.x +1 , person.y);
+            // WHEN COUNTER ISNT 1, this is before the race dialogue
             if (counter != 1){
                if (person.x < 100){
+                   //
                     image(dial5,50,390);
                     text("'ENTER' to start the race", 750,380);
+                    //DRAWS CAT
                     cat.x=25;
                     cat.y=100;
                     cat.draw();
@@ -219,12 +234,12 @@ public class MySketch extends PApplet {
                         counter = 1;
                     }
                     }        
-            }
+            }// draws the snake and give a movement speed of 3. Has the cat wash away from the screen.
             if (counter == 1){
                 snake.draw();
                 snake.x += 3;
                 cat.draw();
-                cat.x -= 5;
+                cat.x -= 4;
                 //MOVEMENT
             if (keyPressed){
                 // LEFT
@@ -245,17 +260,32 @@ public class MySketch extends PApplet {
             }
             }
             if (person.x > 930){
-                text("CONGRATULATIONS ON WINNING THE CULTURE GAME!!!",300,200);
+                //text
+                text("CONGRATULATIONS " + name + " on beating my culture game!!!",300,200);
+                text("'ENTER' to see credit page", 340,250);
+                counter = 0;
+                snake.draw();
+                // Enter to move onto the 
+                if (keyCode == ENTER){
+                    stage = 4;
+                }
+                //Coding if the SNAKE DEFEATS THE DRAGON
+            } else if (snake.x>930 && person.x<snake.x){
+                //text
+                text("You LOST, redo the race by pressing 'ENTER'",300,200);
+                counter = 0;
+                //enter to restart the race segment
+                if (keyCode == ENTER){
+                    counter = 1;
+                    person.x = 0;
+                    snake.x = 0;
+                }
             }
-            
-            
-            
-            
-            
-            
-            
-            
 
+        }
+        //HOME CREDIT SCREEN
+        else if (stage==4){
+            image(credit,0,0);
         }
     }    
 public void keyPressed(){
@@ -273,7 +303,7 @@ public void keyPressed(){
 
             userInput = userInput.substring(0, userInput.length() - 2);
 
-        }
+        }            
 
       }
         }

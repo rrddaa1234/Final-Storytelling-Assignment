@@ -22,7 +22,11 @@ public class Person {
     //Special stamina bar
     private double stamina = 30.0;
     private String namep;
-    
+    /**
+    @param p, x, y, imagePath
+    * @ return the image path and set x and y
+    * 
+    */
     //Instantiation of people / characters with their image.
     public Person(PApplet p, int x, int y, String imagePath){
         this.app = p;
@@ -33,7 +37,6 @@ public class Person {
     public void Name(String name){
         // adds name
         this.namep = name;
-        
     }
     //d is the rate of increase
     public void moveTo(int dx, int dy){
@@ -41,17 +44,11 @@ public class Person {
         x += dx;
         y += dy;
 
-        //stamina -= .2;
-      //  System.out.print(stamina + "   ");
-       // System.out.flush();
     }
     public void draw(){
         //draws the image/person onto the screen
         app.image(image,x,y);
 
-
-        //staminap = doubleParce
-        //text(stamina, 50,50);
     }
     public boolean isCollidingWith(Person other) {
         //Checking and comparing the x and y from both sides to confirm collision.
